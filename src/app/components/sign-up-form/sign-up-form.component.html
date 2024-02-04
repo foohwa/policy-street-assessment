@@ -1,0 +1,45 @@
+<form [formGroup]="formGroup" (ngSubmit)="signUp()" class="flex flex-col gap-2">
+  <mat-label>Full Name</mat-label>
+  <mat-form-field appearance="outline">
+    <input matInput type="text" required formControlName="fullName">
+    <mat-error *ngIf="formGroup.get('fullName')?.hasError('required')">Required</mat-error>
+  </mat-form-field>
+
+  <mat-label>Date of Birth</mat-label>
+  <mat-form-field appearance="outline">
+    <input matInput [matDatepicker]="picker" formControlName="dob">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-label>Email</mat-label>
+  <mat-form-field appearance="outline">
+    <input matInput type="email" formControlName="email">
+    <mat-error *ngIf="formGroup.get('email')?.getError('email') && formGroup.get('email')?.touched">Invalid email
+      format
+    </mat-error>
+    <mat-error *ngIf="formGroup.get('email')?.getError('required')">Required</mat-error>
+  </mat-form-field>
+
+  <mat-label>Phone Number</mat-label>
+  <mat-form-field appearance="outline">
+    <input type="tel" matInput formControlName="phoneNumber">
+    <mat-error *ngIf="formGroup.get('phoneNumber')?.getError('required')">Required</mat-error>
+  </mat-form-field>
+
+  <mat-label>Password</mat-label>
+  <mat-form-field appearance="outline">
+    <input type="password" matInput formControlName="password">
+    <mat-error *ngIf="formGroup.get('password')?.getError('required')">Required</mat-error>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="termsAndConditions"><span
+    class="font-medium">I agree to the terms and conditions</span>
+  </mat-checkbox>
+
+  <button type="submit"
+          class="bg-blue-600 disabled:bg-gray-500 mt-2 rounded-xl p-5 font-bold text-white uppercase leading-3 tracking-wide"
+          [disabled]="formGroup.invalid">
+    Sign Up
+  </button>
+</form>
